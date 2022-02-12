@@ -1,6 +1,9 @@
 # Cisco-Packett-Tracer-Tips-Vlan
 Vlan/Inter Vlan (3 vlan : Ressource Humaine, Commerciaux, Comptabilité)
 
+
+![Vlan](https://user-images.githubusercontent.com/22075822/153721643-c9c533dc-4eff-4828-b82d-c0aaad3388e1.JPG)
+
 Vlan : est un type de réseau local virtuel, il regroupe de manière logique et indépendante un ensemble de machines informatiques, on peut en avoir plusieurs qui cohabitent sur le même commutateur réseau.
 
 ## Procédure Vlan
@@ -22,5 +25,52 @@ name Comptabilité
 ```
 Vous avez donc bien vos 3 Vlan qui ont été ajoutés dans la topologie de votre réseau.
 ### Configuration des interfaces par rapport au Vlan associé
-Sur notre topologie actuelle nous auront donc 3 switchs, vous allez sur votre 1er switch qui sera associé au Vlan 10 (Ressource Humaine)
+Sur notre topologie actuelle nous auront donc 3 switchs, vous allez sur votre 1er switch qui sera associé au Vlan 10 (Ressource Humaine).
+``` conf t
+int fa0/11 (int = interface) 
+switchport mode access (force le port à être un port d'accès tandis que tout périphérique branché sur ce port ne pourra communiquer qu'avec d'autres périphériques qui se trouvent dans le même Vlan)
+switchport mode access vlan 10
+no sh (permet d'activer l'int)
 ```
+Il faudra donc répéter cette action , en mettant bien le Vlan correspondant sur vos 2 switchs restants.
+``` conf t
+int fa0/18
+switchport mode access
+switchport mode access vlan 20
+no sh
+```
+``` conf t 
+int fa0/6
+switchport mode access
+switchport mode access vlan 30
+no sh 
+```
+Pour vérifier ci nos Vlan sont bien associée au switch voulus, vous pouvez tapez cette commande
+```
+sh vlan brief (Show vlan brief : ceux qui va répertorié toute vos Vlan active)
+```
+Nous avons donc bien associé nos Vlan a nos switchs nous pouvons passez l'étapes suivantes.
+### Mode Trunk
+Le protocole Trunk va vous permettre de faire communiquer vos Vlan entres-elles, car pour le moment la vlan 10 ne peut pas communiquer entre les autres poste de cette même Vlan et pareil pour les deux autres Vlan. Pour ce faire allez sur le switch 1 par exemple il faudra dans tout les cas refaire la même manipulation sur les 3 switches de notre topologie.
+``` conf t
+int fa0/1
+switchport mode trunk
+no sh
+```
+Après avoir tapez cette commande sur les 3 switches nous pourront donc faire un ping entre deux postes de deux Vlan associé (PC2 peut ping PC5) mais la Vlan 10 ne peut pas communiquer avec la Vlan 20 et la Vlan 30 et inversement.
+### Adressage IP
+Vous pouvez passer a l'adressage IP sur les postes comme sur la photo ci dessus.
+
+# Félécitation vos Vlan sont opérationnels
+
+Ce n'est pas finis, si vous souhaitez que vos Vlan puissent communiquer entres elles il faudra faire un routage inter-Vlan
+Nous allons donc ajouter un routeur a notre topologie puis se placer sur le switchs qui sera en contact du routeur et activer le routage IP
+``` conf t
+routage ip
+no sh
+```
+## Création des Subnet (Sous-réseaux)
+Il faudras crée 3 sous-réseaux car nous avons 3 Vlan, qui nous serviront de passerelle (Gateway) entre nos postes clients.
+Se placez sur le routeur : 
+``` Conf t 
+int fa0/0.1 (Vlan 10)
