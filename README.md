@@ -63,8 +63,10 @@ Vous pouvez passer a l'adressage IP sur les postes comme sur la photo ci dessus.
 
 # Félécitation vos Vlan sont opérationnels
 
-Ce n'est pas finis, si vous souhaitez que vos Vlan puissent communiquer entres elles il faudra faire un routage inter-Vlan
-Nous allons donc ajouter un routeur a notre topologie puis se placer sur le switchs qui sera en contact du routeur et activer le routage IP
+
+Ce n'est pas fini, si vous souhaitez que vos Vlan puissent communiquer entres elles il faudra faire un routage inter-Vlan
+Nous allons donc ajouter un routeur a notre topologie, ne pas oublier d'allumé le routeur.
+Se placer sur le switchs qui sera en contact du routeur et activer le routage IP :
 ``` conf t
 routage ip
 no sh
@@ -72,5 +74,55 @@ no sh
 ## Création des Subnet (Sous-réseaux)
 Il faudras crée 3 sous-réseaux car nous avons 3 Vlan, qui nous serviront de passerelle (Gateway) entre nos postes clients.
 Se placez sur le routeur : 
-``` Conf t 
+``` conf t 
 int fa0/0.1 (Vlan 10)
+conf t 
+int fa0/0.2 (Vlan 20)
+conf t
+int fa0/0.3 (Vlan 30)
+```
+3 nouveaux sous-réseaux seront donc disponible a partir de maintenant, si vous passez votre souris sur routeurs vous verrez bien vous 3 sous réseaux.
+## Encapsulation DOT1Q
+Nous allons configurer notre routeur afin qu'il serve de jonction pour nos Vlan, pour que nos Vlan puissent communiquer entres-elles.
+Pour ce faire nous allons encapsulé nos Vlan dans les sous-réseaux que l'on vient de crées :
+``` conf t
+int fa0/0.1
+encapsulation dot1Q vlan 10
+no sh
+```
+``` conf t
+int fa0/0.2
+encapsulation dot1Q vlan 20
+no sh
+```
+``` conf t
+int fa0/0.3
+encapsulation dot1Q vlan 30
+no sh
+```
+L'encapsulation de nos 3 Vlan dans nos sous-réseaux a normalement fonctionné.
+
+## Adresse IP des sous interfaces
+Nous allons crée des adresse IP pour les sous-réseaux que l'on viens de crée sur le routeur, pour ce faire allez sur le routeur :
+``` conf t
+int fa0/0.1
+ip add ""."".""."" (Mettre les adresses par rapport a votre topologie)
+no sh 
+```
+Répéter la commande sur les 3 sous-réseaux que l'on a crées
+``` conf t
+int fa0/0.2
+ip add ""."".""."".
+no sh
+```
+``` conf t
+int fa0/0.3
+ip add "".""."".""
+no sh
+```
+Ces adresses que l'on vient de crée va nous servir de gateway à mette dans la configuration des poste clients afin de pouvoir faire des ping entre tout les postes de toute les Vlan disponible
+
+### Voilà fini ;)
+
+Vous devriez si vous avez suivis toutes ces étapes, avoir une topologie ressemblant a ceci :
+![Ok vlan](https://user-images.githubusercontent.com/22075822/153722984-dbd118d4-49f5-4d73-be1c-64d7a31598f5.JPG)
