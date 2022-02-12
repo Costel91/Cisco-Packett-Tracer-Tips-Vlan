@@ -4,7 +4,7 @@ Vlan/Inter Vlan (3 vlan : Ressource Humaine, Commerciaux, Comptabilité)
 Vlan : est un type de réseau local virtuel, il regroupe de manière logique et indépendante un ensemble de machines informatiques, on peut en avoir plusieurs qui cohabitent sur le même commutateur réseau.
 
 ## Procédure Vlan
-Afin de pouvoir ségmenter votre réseau dans divers Groupe/Service grâce ades Vlan et un routage Inter Vlan, je vais vous lister les étapes, les commandes, et le résultat obtenue.
+Afin de pouvoir ségmenter votre réseau dans divers Groupe/Service grâce à des Vlan et un routage Inter Vlan, je vais vous lister les étapes, les commandes, et le résultat obtenue.
 ### Création des Vlan
 Il faudra vous placer sur chaque commutateur réseau et tapez les commandes suivantes :
 
