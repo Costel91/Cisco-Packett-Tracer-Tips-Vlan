@@ -124,5 +124,5 @@ Ces adresses que l'on vient de crée va nous servir de gateway à mette dans la 
 
 ### Voilà fini ;)
 
-Vous devriez si vous avez suivis toutes ces étapes, avoir une topologie ressemblant a ceci :
+Vous devriez si vous avez suivis toutes ces étapes, tout vos poste clients doivent pouvoir communiquer entres eux, vous devriez avoir une topologie ressemblant a ceci :
 ![Ok vlan](https://user-images.githubusercontent.com/22075822/153722984-dbd118d4-49f5-4d73-be1c-64d7a31598f5.JPG)
