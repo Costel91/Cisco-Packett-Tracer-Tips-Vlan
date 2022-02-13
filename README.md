@@ -45,7 +45,7 @@ switchport mode access
 switchport mode access vlan 30
 no sh 
 ```
-Pour vérifier ci nos Vlan sont bien associée au switch voulus, vous pouvez tapez cette commande
+Pour vérifier si nos Vlan sont bien associée au switch voulus, vous pouvez tapez cette commande
 ```
 sh vlan brief (Show vlan brief : ceux qui va répertorié toute vos Vlan active)
 ```
@@ -61,11 +61,11 @@ Après avoir tapez cette commande sur les 3 switches nous pourront donc faire un
 ### Adressage IP
 Vous pouvez passer a l'adressage IP sur les postes comme sur la photo ci dessus.
 
-# Félécitation vos Vlan sont opérationnels
+# Félicitation vos Vlan sont opérationnels
 
 
 Ce n'est pas fini, si vous souhaitez que vos Vlan puissent communiquer entres elles il faudra faire un routage inter-Vlan
-Nous allons donc ajouter un routeur a notre topologie, ne pas oublier d'allumé le routeur.
+Nous allons donc ajouter un routeur a notre topologie, ne pas oublier d'allumer le routeur.
 Se placer sur le switchs qui sera en contact du routeur et activer le routage IP :
 ``` conf t
 routage ip
@@ -84,7 +84,7 @@ int fa0/0.3 (Vlan 30)
 3 nouveaux sous-réseaux seront donc disponible a partir de maintenant, si vous passez votre souris sur routeurs vous verrez bien vous 3 sous réseaux.
 ## Encapsulation DOT1Q
 Nous allons configurer notre routeur afin qu'il serve de jonction pour nos Vlan, pour que nos Vlan puissent communiquer entres-elles.
-Pour ce faire nous allons encapsulé nos Vlan dans les sous-réseaux que l'on vient de crées :
+Pour ce faire nous allons encapsuler nos Vlan dans les sous-réseaux que l'on vient de créer :
 ``` conf t
 int fa0/0.1
 encapsulation dot1Q vlan 10
