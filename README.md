@@ -72,9 +72,10 @@ routage ip
 no sh
 ```
 ## Création des Subnet (Sous-réseaux)
-Il faudra créer 3 sous-réseaux car nous avons 3 Vlan, qui nous serviront de passerelle (Gateway) entre nos postes clients.
+Il faudra créer 3 sous-réseaux car nous avons 3 Vlan, qui nous serviront de passerelle (Gateway) entre nos postes clients. Il faudra aussi bien penser a rentrer en configuration globale (conf t) avant de crée vos sous-réseaux.
 Se placer sur le routeur : 
-``` conf t 
+``` 
+conf t 
 int fa0/0.1 (Vlan 10)
 conf t 
 int fa0/0.2 (Vlan 20)
